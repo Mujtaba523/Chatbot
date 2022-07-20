@@ -1,7 +1,7 @@
 from nltk.stem.porter import PorterStemmer
 import numpy as np
 import nltk
-nltk.download('punkt')
+#nltk.download('punkt')
 import torch
 import torch.nn as nn
 from torch.utils.data import Dataset, DataLoader
@@ -104,7 +104,7 @@ def Bot(sentence):
     y_train = np.array(y_train)
 
     # Hyper-parameters 
-    num_epochs = 600
+    num_epochs = 400
     batch_size = 8
     learning_rate = 0.001
     input_size = len(X_train[0])
@@ -157,11 +157,6 @@ def Bot(sentence):
             loss.backward()
             optimizer.step()
             
-        if (epoch+1) % 100 == 0:
-            print (f'Epoch [{epoch+1}/{num_epochs}], Loss: {loss.item():.4f}')
-
-
-    print(f'final loss: {loss.item():.4f}')
 
     data = {
     "model_state": model.state_dict(),
@@ -173,8 +168,6 @@ def Bot(sentence):
     }
     FILE = "data.pth"
     torch.save(data, FILE)
-
-    print(f'training complete. file saved to {FILE}')
 
 
     device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
@@ -218,4 +211,3 @@ def Bot(sentence):
     else:
         return f"{bot_name}: I do not understand..."
 
-print(Bot("Who are you?"))
