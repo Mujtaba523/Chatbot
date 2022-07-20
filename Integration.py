@@ -1,4 +1,4 @@
 import Bot
 Input = "Define Crypto?"
-Response = Bot.Bot(Input)
+Response = str(Bot.Bot(Input))
 print(Response)
